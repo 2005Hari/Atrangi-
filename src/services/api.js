@@ -5,7 +5,7 @@ const getHeaders = () => {
     return token ? { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
 };
 
-const API_URL = import.meta.env.VITE_API_URL || '/api'; // Use env var in prod, proxy in dev
+const API_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '') + (import.meta.env.VITE_API_URL ? '/api' : ''); // Ensure /api is appended in prod
 
 export const api = {
     // Auth
