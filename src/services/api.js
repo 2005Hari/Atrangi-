@@ -5,7 +5,7 @@ const getHeaders = () => {
     return token ? { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
 };
 
-const API_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '') + (import.meta.env.VITE_API_URL ? '/api' : ''); // Ensure /api is appended in prod
+const API_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '').replace(/\/api$/, '') + '/api'; // Always ensure exactly one /api at the end
 
 export const api = {
     // Auth
