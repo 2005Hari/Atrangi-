@@ -55,7 +55,7 @@ router.get('/my-orders', auth, async (req, res) => {
 });
 
 // Admin: Get All Orders
-router.get('/', auth, requireRole(['admin']), async (req, res) => {
+router.get('/', auth, requireRole(['ADMIN']), async (req, res) => {
     try {
         const orders = await db.orders.find({}).sort({ createdAt: -1 });
         res.json(orders);
@@ -65,7 +65,7 @@ router.get('/', auth, requireRole(['admin']), async (req, res) => {
 });
 
 // Admin: Update Order Status
-router.patch('/:id', auth, requireRole(['admin']), async (req, res) => {
+router.patch('/:id', auth, requireRole(['ADMIN']), async (req, res) => {
     try {
         const { status } = req.body; // remove manual role check, middleware handles it
         const result = await db.orders.updateOne({ _id: req.params.id }, { $set: { status } });

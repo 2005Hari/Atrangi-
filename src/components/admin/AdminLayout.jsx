@@ -11,79 +11,78 @@ const AdminLayout = () => {
     useEffect(() => {
         if (!user) {
             navigate('/login');
-        } else if (!['admin', 'creative_head', 'content_team', 'marketing_em'].includes(user.role)) {
-            // Regular users kicked out
+        } else if (user.role !== 'ADMIN') {
+            // Non-admins booted to safety
             navigate('/');
         }
     }, [user, navigate]);
 
-    if (!user || user.role === 'user') return null;
+    if (!user || user.role !== 'ADMIN') return null;
 
-    // Role-based navigation config
-    const allNavItems = [
-        { name: 'Dashboard', path: '/admin', icon: LayoutDashboard, roles: ['admin', 'creative_head', 'content_team', 'marketing_em'] },
-        { name: 'Orders', path: '/admin/orders', icon: Truck, roles: ['admin'] },
-        // Marketing can view ALL orders? No, usually separate. Requirement says "Marketing & EM: Read-only access to analytics" -> Dashboard covers analytics.
-        // Orders is purely fulfillment. Admin only for now.
-        { name: 'Products', path: '/admin/products', icon: Package, roles: ['admin', 'creative_head', 'marketing_em', 'content_team'] }, // Everyone touches products in some way
-        { name: 'Artists', path: '/admin/artists', icon: Users, roles: ['admin', 'creative_head', 'content_team'] },
-        { name: 'Commissions', path: '/admin/commissions', icon: Palette, roles: ['admin', 'marketing_em'] },
-        { name: 'Users', path: '/admin/users', icon: UserCog, roles: ['admin'] },
+    const navItems = [
+        { name: 'Telemetry', path: '/admin', icon: LayoutDashboard },
+        { name: 'Acquisitions', path: '/admin/orders', icon: Truck },
+        { name: 'Curation', path: '/admin/artworks', icon: Package },
+        { name: 'Artisans', path: '/admin/artists', icon: Users },
+        { name: 'Commissions', path: '/admin/commissions', icon: Palette },
+        { name: 'Members', path: '/admin/users', icon: UserCog },
     ];
 
-    const allowedNavItems = allNavItems.filter(item => item.roles.includes(user.role));
-
     return (
-        <div className="min-h-screen bg-gray-100 flex">
-            {/* Sidebar */}
-            <aside className="w-64 bg-charcoal text-white flex flex-col fixed h-full z-50">
-                <div className="p-6 border-b border-gray-700">
-                    <h1 className="text-2xl font-display font-bold tracking-wider">
-                        ATRANGI <span className="text-deep-saffron">ADMIN</span>
-                    </h1>
-                    <p className='text-xs text-gray-400 mt-2 uppercase tracking-widest'>{user.role.replace('_', ' ')}</p>
+        <div className="min-h-screen bg-[#0D0D0D] text-[#FAF9F6] flex">
+            {/* Sidebar Navigation */}
+            <aside className="w-64 bg-[#090909] border-r border-white/5 flex flex-col fixed h-full z-50">
+                <div className="p-8 border-b border-white/5">
+                    <Link 
+                        to="/" 
+                        className="text-lg font-display font-bold tracking-[0.25em] text-[#FAF9F6] hover:text-[#C5A880] transition-colors"
+                    >
+                        ARTNESTIA
+                    </Link>
+                    <p className="text-[9px] uppercase tracking-[0.2em] text-[#C5A880] mt-2 font-medium">ADMIN PORTAL</p>
                 </div>
 
-                <nav className="flex-1 p-4 space-y-2">
-                    {allowedNavItems.map((item) => {
+                <nav className="flex-1 p-6 space-y-2">
+                    {navItems.map((item) => {
                         const Icon = item.icon;
                         const isActive = location.pathname === item.path;
                         return (
                             <Link
                                 key={item.path}
                                 to={item.path}
-                                className={`flex items-center space-x-3 px-4 py-3 rounded transition-colors ${isActive
-                                    ? 'bg-deep-saffron text-white'
-                                    : 'text-gray-400 hover:bg-white/10 hover:text-white'
-                                    }`}
+                                className={`flex items-center space-x-4 px-4 py-3 text-xs uppercase tracking-widest font-light transition-all ${
+                                    isActive
+                                        ? 'bg-[#C5A880] text-[#0D0D0D] font-semibold'
+                                        : 'text-gray-400 hover:bg-white/5 hover:text-[#FAF9F6]'
+                                }`}
                             >
-                                <Icon size={20} />
-                                <span className="font-medium">{item.name}</span>
+                                <Icon size={16} strokeWidth={isActive ? 2 : 1.2} />
+                                <span>{item.name}</span>
                             </Link>
                         );
                     })}
                 </nav>
 
-                <div className="p-4 border-t border-gray-700 space-y-2">
+                <div className="p-6 border-t border-white/5 space-y-2">
                     <Link
                         to="/"
-                        className="flex items-center space-x-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/10 rounded transition-colors"
+                        className="flex items-center space-x-4 px-4 py-3 text-xs uppercase tracking-widest font-light text-gray-400 hover:text-[#FAF9F6] hover:bg-white/5 transition-all"
                     >
-                        <Home size={20} />
-                        <span>View Site</span>
+                        <Home size={16} strokeWidth={1.2} />
+                        <span>Public Site</span>
                     </Link>
                     <button
                         onClick={() => { logout(); navigate('/login'); }}
-                        className="w-full flex items-center space-x-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-900/20 rounded transition-colors"
+                        className="w-full flex items-center space-x-4 px-4 py-3 text-xs uppercase tracking-widest font-light text-red-400 hover:text-red-300 hover:bg-red-950/10 transition-all text-left"
                     >
-                        <LogOut size={20} />
-                        <span>Sign Out</span>
+                        <LogOut size={16} strokeWidth={1.2} />
+                        <span>Terminate</span>
                     </button>
                 </div>
             </aside>
 
-            {/* Main Content */}
-            <main className="flex-1 ml-64 p-8 overflow-y-auto">
+            {/* Main Content Area */}
+            <main className="flex-1 ml-64 p-12 overflow-y-auto bg-[#0D0D0D]">
                 <Outlet />
             </main>
         </div>

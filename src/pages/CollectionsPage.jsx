@@ -105,7 +105,7 @@ const CollectionsPage = () => {
                             ) : (
                                 <div className="text-center py-12 bg-gray-50 rounded-sm border-2 border-dashed border-gray-200">
                                     <p className="text-gray-400">This collection is empty.</p>
-                                    <Link to="/collections" className="text-deep-saffron hover:underline mt-2 inline-block">
+                                    <Link to="/shop" className="text-deep-saffron hover:underline mt-2 inline-block">
                                         Browse Art
                                     </Link>
                                 </div>

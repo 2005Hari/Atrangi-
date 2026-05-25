@@ -49,16 +49,10 @@ const Hero = () => {
                     className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6"
                 >
                     <Link
-                        to="/collections"
+                        to="/shop"
                         className="px-10 py-4 bg-deep-saffron text-white font-display font-bold tracking-widest hover:bg-white hover:text-charcoal transition-all duration-300 transform hover:-translate-y-1 shadow-lg"
                     >
-                        EXPLORE COLLECTION
-                    </Link>
-                    <Link
-                        to="/about"
-                        className="px-10 py-4 border border-white/30 backdrop-blur-sm text-white font-display font-bold tracking-widest hover:bg-white hover:text-charcoal transition-all duration-300 transform hover:-translate-y-1 flex items-center"
-                    >
-                        OUR STORY <ChevronRight size={16} className="ml-2" />
+                        EXPLORE SHOP
                     </Link>
                 </motion.div>
             </div>

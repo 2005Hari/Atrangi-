@@ -89,7 +89,7 @@ router.get('/artist/:name', async (req, res) => {
 });
 
 // Add Product (Protected)
-router.post('/', auth, requireRole(['admin', 'creative_head']), async (req, res) => {
+router.post('/', auth, requireRole(['ADMIN', 'ARTIST']), async (req, res) => {
     try {
         const product = { ...req.body, id: Date.now() };
         await db.products.create(product);
@@ -99,28 +99,11 @@ router.post('/', auth, requireRole(['admin', 'creative_head']), async (req, res)
     }
 });
 
-// Update Product (Protected with Granular Access)
-router.put('/:id', auth, requireRole(['admin', 'creative_head', 'content_team', 'marketing_em']), async (req, res) => {
+// Update Product (Protected)
+router.put('/:id', auth, requireRole(['ADMIN', 'ARTIST']), async (req, res) => {
     try {
-        const { role } = req.user;
-        const updates = req.body;
         const productId = parseInt(req.params.id);
-
-        // Security: Filter allowed fields based on role
-        if (role === 'content_team') {
-            // Can only edit description, bio, tags (assuming tags in desc or separate), images
-            // CANNOT edit price, inStock
-            delete updates.price;
-            delete updates.inStock;
-        } else if (role === 'marketing_em') {
-            // Can only edit 'featured' status
-            const newUpdates = {};
-            if (updates.featured !== undefined) newUpdates.featured = updates.featured;
-            // Ignore everything else
-            if (Object.keys(newUpdates).length === 0) return res.status(403).json({ error: "Marketing can only update featured status." });
-        }
-
-        // Admin & Creative Head have full access (no filtering needed)
+        const updates = req.body;
 
         const result = await db.products.updateOne({ id: productId }, { $set: updates });
         if (result.matchedCount === 0) return res.status(404).json({ error: "Product not found" });
@@ -133,7 +116,7 @@ router.put('/:id', auth, requireRole(['admin', 'creative_head', 'content_team', 
 });
 
 // Delete Product (Protected)
-router.delete('/:id', auth, requireRole(['admin', 'creative_head']), async (req, res) => {
+router.delete('/:id', auth, requireRole(['ADMIN', 'ARTIST']), async (req, res) => {
     try {
         const productId = parseInt(req.params.id);
         const product = await db.products.findOne({ id: productId });

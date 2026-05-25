@@ -5,41 +5,42 @@ import { Plus, Minus } from 'lucide-react';
 const FAQPage = () => {
     const faqs = [
         {
-            question: "How long does shipping take?",
-            answer: "We strive to deliver your art as quickly as possible. Domestic shipping within India typically takes 5-7 business days. Express shipping options (2-3 days) are available at checkout. International shipping generally takes 10-15 business days depending on the destination and customs clearance."
+            question: "What is the dispatch time for curated masterpieces?",
+            answer: "Each unique physical artwork is inspected, custom crated, and insured before dispatch. Curatorial preparation takes 2-4 business days. Standard delivery within India takes 4-7 business days. Custom express dispatch can be configured at check-out."
         },
         {
-            question: "What is your return policy?",
-            answer: "We want you to love your art! If you are not completely satisfied, we accept returns within 7 days of delivery for a full refund, provided the artwork is in its original condition. Please note that custom commissioned pieces are non-refundable unless they arrive damaged."
+            question: "What is your acquisition return policy?",
+            answer: "Due to the unique, one-of-a-kind nature of fine art, all sales are considered final upon delivery. However, we offer a 7-day grace window for standard cataloged acquisitions if you are not fully satisfied. Custom commission briefs are non-refundable."
         },
         {
-            question: "How are the artworks packaged?",
-            answer: "We take great care in packaging. Prints are shipped in reinforced tubes, while framed works and canvases are protected with bubble wrap, corner guards, and sturdy cardboard boxes to ensure they arrive safely."
+            question: "How are the canvases packaged?",
+            answer: "Every physical canvas is secured inside heavy-duty museum-grade wooden crates, wrapped in archival acid-free paper, bubble wrap, and structural edge guards to guarantee pristine, transit-safe delivery."
         },
         {
-            question: "Can I commission a custom piece from a specific artist?",
-            answer: "Absolutely! Visit our 'Commission Art' page, where you can browse artists open for commissions. You can specify your requirements, budget, and style preferences, and we will facilitate the process from concept to delivery."
+            question: "Can I request custom creations from an artisan?",
+            answer: "Yes, you can initiate a custom visual project via our 'Commissions' page. We host a 5-step editorial wizard brief that matches you directly with the designated artisan to fit your exact architectural dimensions."
         },
         {
-            question: "Do you offer international shipping?",
-            answer: "Yes, we ship worldwide! International shipping rates are calculated at checkout based on the package weight and destination. Please be aware that you may be responsible for any local customs duties or taxes."
+            question: "Do you offer insured international delivery?",
+            answer: "Yes, we coordinate global logistics. All international customs duty clearance and custom shipping costs are automatically estimated at checkout based on package dimensions and weight."
         },
         {
-            question: "How do I support the student artists?",
-            answer: "By purchasing from ArtNestia, you are directly supporting student creativity. We ensure that 85% of the profit from each sale goes directly to the artist to support their education and artistic journey."
-        },
-        {
-            question: "What payment methods do you accept?",
-            answer: "We accept all major credit and debit cards (Visa, Mastercard, Amex), UPI, and Net Banking. All transactions are processed securely."
+            question: "What secure gateways do you accept?",
+            answer: "We support major luxury secure gateways, including all international credit cards, secure banking transactions, and digital wallets, under SSL encryptions."
         }
     ];
 
     return (
-        <div className="min-h-screen bg-cream pt-32 pb-20">
-            <div className="container mx-auto px-6 max-w-3xl">
-                <h1 className="text-4xl font-display text-charcoal mb-12 text-center">Frequently Asked Questions</h1>
+        <div className="min-h-screen bg-[#0D0D0D] text-[#FAF9F6] pt-40 pb-24 px-8">
+            <div className="max-w-3xl mx-auto space-y-12">
+                {/* Header */}
+                <div className="border-b border-white/5 pb-8 text-center space-y-2">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#C5A880]">Platform Assistance</span>
+                    <h1 className="text-3xl md:text-5xl font-display font-light text-[#FAF9F6]">Frequently Asked Questions</h1>
+                    <p className="text-xs text-gray-500 tracking-wider mt-2">Essential inquiries regarding acquisitions, commissions, and shipping.</p>
+                </div>
 
-                <div className="space-y-4">
+                <div className="space-y-6">
                     {faqs.map((faq, index) => (
                         <FAQItem key={index} question={faq.question} answer={faq.answer} />
                     ))}
@@ -53,13 +54,17 @@ const FAQItem = ({ question, answer }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="border border-gray-200 rounded-sm bg-white overflow-hidden">
+        <div className="border border-white/5 bg-[#090909] overflow-hidden transition-all duration-300">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex justify-between items-center p-6 text-left hover:bg-gray-50 transition-colors"
+                className="w-full flex justify-between items-center p-6 text-left hover:bg-white/[0.01] transition-colors"
             >
-                <span className="font-medium text-charcoal text-lg">{question}</span>
-                {isOpen ? <Minus size={20} className="text-deep-saffron" /> : <Plus size={20} className="text-gray-400" />}
+                <span className="font-display font-light text-sm tracking-wider text-[#FAF9F6]">{question}</span>
+                {isOpen ? (
+                    <Minus size={14} className="text-[#C5A880]" />
+                ) : (
+                    <Plus size={14} className="text-gray-500" />
+                )}
             </button>
             <AnimatePresence>
                 {isOpen && (
@@ -67,9 +72,9 @@ const FAQItem = ({ question, answer }) => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
                     >
-                        <div className="p-6 pt-0 text-gray-500 leading-relaxed border-t border-gray-100">
+                        <div className="p-6 pt-0 text-[11px] font-light tracking-wider leading-relaxed text-gray-400 border-t border-white/5">
                             {answer}
                         </div>
                     </motion.div>

@@ -4,74 +4,67 @@ import { RefreshCw, ShieldCheck, Mail } from 'lucide-react';
 
 const ReturnsPage = () => {
     return (
-        <div className="min-h-screen bg-cream pt-32 pb-20">
-            <div className="container mx-auto px-6 max-w-4xl">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-16"
-                >
-                    <h1 className="text-4xl md:text-5xl font-display text-charcoal mb-6">Returns & Refunds</h1>
-                    <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-                        We want you to be completely happy with your ArtNestia purchase. If something isn't right, we're here to help.
+        <div className="min-h-screen bg-[#0D0D0D] text-[#FAF9F6] pt-40 pb-24 px-8">
+            <div className="max-w-4xl mx-auto space-y-16">
+                
+                {/* Header */}
+                <div className="text-center space-y-2">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#C5A880]">Platform Guarantees</span>
+                    <h1 className="text-3xl md:text-5xl font-display font-light text-[#FAF9F6]">Acquisition Return Policy</h1>
+                    <p className="text-xs text-gray-500 tracking-wider max-w-lg mx-auto leading-relaxed mt-2">
+                        Each transaction represents an exclusive curatorial transition. Learn about our authenticity assurance and grace windows.
                     </p>
-                </motion.div>
+                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                    <div className="bg-white p-8 rounded-sm shadow-sm text-center">
-                        <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <RefreshCw size={32} />
+                {/* Analytical Value Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="bg-[#090909] border border-white/5 p-8 text-center space-y-4">
+                        <div className="w-12 h-12 bg-white/5 text-[#C5A880] rounded-full flex items-center justify-center mx-auto">
+                            <RefreshCw size={20} strokeWidth={1.5} />
                         </div>
-                        <h3 className="font-bold text-lg mb-3">7-Day Returns</h3>
-                        <p className="text-gray-500 text-sm">
-                            Return any eligible artwork within 7 days of delivery for a full refund or exchange.
+                        <h3 className="font-display uppercase tracking-widest text-[#FAF9F6] text-xs">7-Day Return Grace</h3>
+                        <p className="text-gray-500 text-[10px] tracking-wider leading-relaxed">
+                            Eligible standard acquisitions can be returned within 7 days of verified arrival in original packaging.
                         </p>
                     </div>
-                    <div className="bg-white p-8 rounded-sm shadow-sm text-center">
-                        <div className="w-16 h-16 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <ShieldCheck size={32} />
+
+                    <div className="bg-[#090909] border border-white/5 p-8 text-center space-y-4">
+                        <div className="w-12 h-12 bg-white/5 text-[#C5A880] rounded-full flex items-center justify-center mx-auto">
+                            <ShieldCheck size={20} strokeWidth={1.5} />
                         </div>
-                        <h3 className="font-bold text-lg mb-3">Authenticity Guarantee</h3>
-                        <p className="text-gray-500 text-sm">
-                            Every piece comes with a Certificate of Authenticity signed by the artist.
+                        <h3 className="font-display uppercase tracking-widest text-[#FAF9F6] text-xs">Authenticity Certificate</h3>
+                        <p className="text-gray-500 text-[10px] tracking-wider leading-relaxed">
+                            Every original physical canvas includes a physical Certificate of Authenticity signed by the artist.
                         </p>
                     </div>
-                    <div className="bg-white p-8 rounded-sm shadow-sm text-center">
-                        <div className="w-16 h-16 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <Mail size={32} />
+
+                    <div className="bg-[#090909] border border-white/5 p-8 text-center space-y-4">
+                        <div className="w-12 h-12 bg-white/5 text-[#C5A880] rounded-full flex items-center justify-center mx-auto">
+                            <Mail size={20} strokeWidth={1.5} />
                         </div>
-                        <h3 className="font-bold text-lg mb-3">Easy Process</h3>
-                        <p className="text-gray-500 text-sm">
-                            Simply email us with your order number and photos to initiate a return.
+                        <h3 className="font-display uppercase tracking-widest text-[#FAF9F6] text-xs">Direct Support Desk</h3>
+                        <p className="text-gray-500 text-[10px] tracking-wider leading-relaxed">
+                            Direct premium concierge assistance to coordinate packaging returns or freight pick-ups.
                         </p>
                     </div>
                 </div>
 
-                <div className="bg-white p-8 md:p-12 rounded-sm shadow-sm space-y-8 text-gray-600 leading-relaxed">
-                    <section>
-                        <h2 className="text-xl font-bold text-charcoal mb-4">Eligibility for Returns</h2>
-                        <ul className="list-disc pl-5 space-y-2">
-                            <li>The item must be unused and in the same condition that you received it.</li>
-                            <li>It must be in the original packaging.</li>
-                            <li>You must have the receipt or proof of purchase.</li>
-                            <li><strong>Custom commissioned artworks</strong> are final sale and cannot be returned unless damaged during transit.</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h2 className="text-xl font-bold text-charcoal mb-4">Refunds Process</h2>
+                {/* Editorial Details */}
+                <div className="bg-[#090909] border border-white/5 p-8 md:p-12 space-y-8 text-xs font-light tracking-wider leading-relaxed text-gray-400">
+                    <section className="space-y-3">
+                        <h2 className="text-sm font-display uppercase tracking-widest text-[#FAF9F6]">Eligibility and Parameters</h2>
                         <p>
-                            Once your return is received and inspected, we will send you an email to notify you that we have received your returned item. We will also notify you of the approval or rejection of your refund.
+                            To maintain the integrity of listed masterpieces, returns are accepted strictly within 7 business days of delivery. Artworks must be returned in their original wooden crates, wrapped in their initial archival sheets, and showing no signs of wear, framing damage, or environmental exposure.
                         </p>
-                        <p className="mt-4">
-                            If you are approved, then your refund will be processed, and a credit will automatically be applied to your credit card or original method of payment, within 5-10 business days.
+                        <p className="text-red-400/90 font-medium">
+                            * Custom commission briefs, once accepted and entered into the structural creation phase, are final sale and non-refundable.
                         </p>
                     </section>
 
-                    <section>
-                        <h2 className="text-xl font-bold text-charcoal mb-4">Damaged Items</h2>
+                    <section className="space-y-3">
+                        <h2 className="text-sm font-display uppercase tracking-widest text-[#FAF9F6]">Verification and Payout Refunds</h2>
                         <p>
-                            We pack our art with extreme care, but accidents can happen. If your artwork arrives damaged, please email us at <strong>returns@artnestia.com</strong> within 48 hours of delivery with clear photos of the damage and the packaging. We will arrange for a replacement or a full refund immediately.
+                            Upon arrival back at our primary curatorial gallery, returned works undergo thorough authenticity and physical condition verification. Verified acquisitions are credited back to your original transaction gateway within 5-10 business days of reception.
                         </p>
                     </section>
                 </div>

@@ -1,25 +1,51 @@
-import React, { useState } from 'react';
-import { useStore } from '../../store/useStore';
+import React, { useState, useEffect } from 'react';
+import { api } from '../../services/api';
 import { Plus, Edit, Trash2, X, Save } from 'lucide-react';
+import { useToast } from '../../context/ToastContext';
 
 const ArtistManager = () => {
-    const { artists, addArtist, updateArtist, deleteArtist } = useStore();
+    const { addToast } = useToast();
+    const [artists, setArtists] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
     const [currentArtist, setCurrentArtist] = useState(null);
 
     const initialFormState = {
         name: '',
-        expertise: '',
-        university: '',
+        expertise: 'Painting',
+        university: 'Royal College of Art',
         image: '',
         bio: ''
     };
 
     const [formData, setFormData] = useState(initialFormState);
 
+    const fetchArtists = async () => {
+        setLoading(true);
+        try {
+            const data = await api.getArtists();
+            setArtists(data || []);
+        } catch (error) {
+            console.error("Failed to load artists registry:", error);
+            addToast('error', 'Failed to retrieve artists roster.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchArtists();
+    }, []);
+
     const handleEdit = (artist) => {
         setCurrentArtist(artist);
-        setFormData(artist);
+        setFormData({
+            name: artist.name || '',
+            expertise: artist.expertise || 'Painting',
+            university: artist.university || 'Royal College of Art',
+            image: artist.image || '',
+            bio: artist.bio || ''
+        });
         setIsEditing(true);
     };
 
@@ -29,164 +55,209 @@ const ArtistManager = () => {
         setIsEditing(true);
     };
 
-    const handleDelete = (id) => {
-        if (window.confirm('Are you sure you want to delete this artist?')) {
-            deleteArtist(id);
+    const handleDelete = async (id, name) => {
+        if (window.confirm(`Are you certain you wish to remove the registry for ${name}?`)) {
+            try {
+                await api.deleteArtist(id);
+                addToast('success', 'Artisan registry permanently deleted.');
+                fetchArtists();
+            } catch (error) {
+                console.error("Failed to remove artist:", error);
+                addToast('error', 'Failed to remove artist registry.');
+            }
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const artistData = {
-            ...formData,
-            id: currentArtist ? currentArtist.id : Date.now()
-        };
-
-        if (currentArtist) {
-            updateArtist(artistData);
-        } else {
-            addArtist(artistData);
+        try {
+            if (currentArtist) {
+                await api.updateArtist(currentArtist.id, formData);
+                addToast('success', 'Artisan profile registry updated.');
+            } else {
+                await api.createArtist(formData);
+                addToast('success', 'Artisan enrolled in studio database.');
+            }
+            setIsEditing(false);
+            fetchArtists();
+        } catch (error) {
+            console.error("Failed to register artist details:", error);
+            addToast('error', 'Failed to save artisan details.');
         }
-        setIsEditing(false);
     };
 
     return (
-        <div>
-            <div className="flex justify-between items-center mb-8">
-                <h1 className="text-3xl font-display font-bold text-charcoal">Artist Manager</h1>
+        <div className="space-y-12">
+            {/* Header */}
+            <div className="border-b border-white/5 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div className="space-y-2">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#C5A880]">Executive Portal</span>
+                    <h1 className="text-3xl md:text-5xl font-display font-light text-[#FAF9F6]">Artisans Roster</h1>
+                    <p className="text-xs text-gray-500 tracking-wider">Moderate and register platform artists, academies, and professional biographies.</p>
+                </div>
                 <button
                     onClick={handleAddNew}
-                    className="bg-deep-saffron text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-orange-600 transition-colors"
+                    className="bg-[#C5A880] text-[#0D0D0D] hover:bg-[#FAF9F6] text-xs uppercase tracking-widest px-6 py-3 flex items-center gap-2 transition-all font-semibold self-start md:self-auto"
                 >
-                    <Plus size={20} />
-                    <span>Add Artist</span>
+                    <Plus size={14} /> Enroll New Artisan
                 </button>
             </div>
 
-            {/* Artist List */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-                <table className="w-full text-left">
-                    <thead className="bg-gray-50 border-b border-gray-100">
-                        <tr>
-                            <th className="p-4 font-medium text-gray-500">Image</th>
-                            <th className="p-4 font-medium text-gray-500">Name</th>
-                            <th className="p-4 font-medium text-gray-500">Expertise</th>
-                            <th className="p-4 font-medium text-gray-500">University</th>
-                            <th className="p-4 font-medium text-gray-500 text-right">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {artists.map(artist => (
-                            <tr key={artist.id} className="border-b border-gray-50 last:border-0 hover:bg-gray-50/50">
-                                <td className="p-4">
-                                    <img src={artist.image} alt={artist.name} className="w-12 h-12 rounded-full object-cover" />
-                                </td>
-                                <td className="p-4 font-medium text-charcoal">{artist.name}</td>
-                                <td className="p-4 text-gray-600">{artist.expertise}</td>
-                                <td className="p-4 text-gray-600">{artist.university}</td>
-                                <td className="p-4 text-right space-x-2">
-                                    <button
-                                        onClick={() => handleEdit(artist)}
-                                        className="text-blue-500 hover:text-blue-700 p-1"
-                                    >
-                                        <Edit size={18} />
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(artist.id)}
-                                        className="text-red-500 hover:text-red-700 p-1"
-                                    >
-                                        <Trash2 size={18} />
-                                    </button>
-                                </td>
+            {loading ? (
+                <div className="flex justify-center py-20">
+                    <div className="w-6 h-6 border-2 border-t-transparent border-[#C5A880] rounded-full animate-spin"></div>
+                </div>
+            ) : artists.length === 0 ? (
+                <div className="bg-[#090909] border border-white/5 p-16 text-center text-xs text-gray-500 tracking-wider">
+                    No artisans are currently registered in the database.
+                </div>
+            ) : (
+                /* Elegant Artisans Table */
+                <div className="border border-white/5 overflow-hidden">
+                    <table className="w-full text-left border-collapse">
+                        <thead>
+                            <tr className="bg-[#080808] border-b border-white/5 text-[9px] uppercase tracking-widest text-gray-400 font-semibold">
+                                <th className="py-4 px-6">Artisan</th>
+                                <th className="py-4 px-6">Expertise / Class</th>
+                                <th className="py-4 px-6">Academy Affiliation</th>
+                                <th className="py-4 px-6 text-right">Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody className="divide-y divide-white/5 text-xs font-light text-gray-300">
+                            {artists.map((artist) => (
+                                <tr key={artist.id} className="hover:bg-white/[0.01] transition-colors">
+                                    <td className="py-4 px-6 flex items-center gap-4">
+                                        <div className="w-10 h-10 bg-neutral-900 overflow-hidden rounded-full relative border border-white/5">
+                                            <img
+                                                src={artist.image}
+                                                alt={artist.name}
+                                                className="w-full h-full object-cover grayscale"
+                                            />
+                                        </div>
+                                        <div>
+                                            <div className="text-sm font-display text-[#FAF9F6] tracking-wide font-normal">{artist.name}</div>
+                                            <div className="text-[10px] text-gray-500 mt-0.5 select-all">ID: {artist.id}</div>
+                                        </div>
+                                    </td>
+                                    <td className="py-4 px-6 text-gray-400">
+                                        <span className="text-[10px] uppercase tracking-widest text-[#C5A880]/80">{artist.expertise}</span>
+                                    </td>
+                                    <td className="py-4 px-6 text-gray-400 font-normal tracking-wide">
+                                        {artist.university}
+                                    </td>
+                                    <td className="py-4 px-6 text-right space-x-4">
+                                        <button
+                                            onClick={() => handleEdit(artist)}
+                                            className="text-gray-400 hover:text-[#C5A880] transition-colors p-1"
+                                        >
+                                            <Edit size={14} />
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(artist.id, artist.name)}
+                                            className="text-gray-400 hover:text-red-400 transition-colors p-1"
+                                        >
+                                            <Trash2 size={14} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
 
-            {/* Edit/Add Modal */}
+            {/* Modal */}
             {isEditing && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-                        <div className="flex justify-between items-center p-6 border-b border-gray-100">
-                            <h2 className="text-xl font-bold text-charcoal">
-                                {currentArtist ? 'Edit Artist' : 'Add New Artist'}
-                            </h2>
-                            <button onClick={() => setIsEditing(false)} className="text-gray-400 hover:text-gray-600">
-                                <X size={24} />
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0D0D0D]/90 backdrop-blur-md p-4">
+                    <div className="bg-[#090909] border border-white/10 w-full max-w-2xl max-h-[90vh] overflow-y-auto p-8 space-y-6 scrollbar-thin">
+                        <div className="flex justify-between items-center border-b border-white/5 pb-4">
+                            <div>
+                                <span className="text-[9px] uppercase tracking-widest text-[#C5A880]">Platform Ledger</span>
+                                <h3 className="text-xl font-display font-light text-[#FAF9F6]">
+                                    {currentArtist ? 'Refine Artisan Profile' : 'Enroll New Artisan'}
+                                </h3>
+                            </div>
+                            <button onClick={() => setIsEditing(false)} className="text-gray-400 hover:text-[#C5A880] transition-colors">
+                                <X size={20} />
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-1">
+                                    <label className="text-[10px] uppercase tracking-widest text-gray-400">Artisan Full Name</label>
                                     <input
-                                        type="text"
                                         required
+                                        type="text"
                                         value={formData.name}
                                         onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-deep-saffron"
+                                        placeholder="e.g. Benjamin Dupont"
+                                        className="w-full bg-[#0D0D0D] border border-white/5 focus:border-[#C5A880]/50 text-xs px-4 py-3 text-[#FAF9F6] outline-none transition-colors"
                                     />
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Expertise</label>
+                                <div className="space-y-1">
+                                    <label className="text-[10px] uppercase tracking-widest text-gray-400">Expertise / Media Class</label>
                                     <input
-                                        type="text"
                                         required
+                                        type="text"
                                         value={formData.expertise}
                                         onChange={e => setFormData({ ...formData, expertise: e.target.value })}
-                                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-deep-saffron"
+                                        placeholder="e.g. Abstract Expressionism"
+                                        className="w-full bg-[#0D0D0D] border border-white/5 focus:border-[#C5A880]/50 text-xs px-4 py-3 text-[#FAF9F6] outline-none transition-colors"
                                     />
                                 </div>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">University</label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={formData.university}
-                                    onChange={e => setFormData({ ...formData, university: e.target.value })}
-                                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-deep-saffron"
-                                />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-1">
+                                    <label className="text-[10px] uppercase tracking-widest text-gray-400">Academy / University Affiliation</label>
+                                    <input
+                                        required
+                                        type="text"
+                                        value={formData.university}
+                                        onChange={e => setFormData({ ...formData, university: e.target.value })}
+                                        placeholder="e.g. Yale School of Art"
+                                        className="w-full bg-[#0D0D0D] border border-white/5 focus:border-[#C5A880]/50 text-xs px-4 py-3 text-[#FAF9F6] outline-none transition-colors"
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <label className="text-[10px] uppercase tracking-widest text-gray-400">High-Resolution Avatar URL</label>
+                                    <input
+                                        required
+                                        type="url"
+                                        value={formData.image}
+                                        onChange={e => setFormData({ ...formData, image: e.target.value })}
+                                        placeholder="Paste image link address"
+                                        className="w-full bg-[#0D0D0D] border border-white/5 focus:border-[#C5A880]/50 text-xs px-4 py-3 text-[#FAF9F6] outline-none transition-colors"
+                                    />
+                                </div>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-                                <input
-                                    type="url"
-                                    required
-                                    value={formData.image}
-                                    onChange={e => setFormData({ ...formData, image: e.target.value })}
-                                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-deep-saffron"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                            <div className="space-y-1">
+                                <label className="text-[10px] uppercase tracking-widest text-gray-400">Artisan Biography / Curation context</label>
                                 <textarea
+                                    required
                                     rows="4"
                                     value={formData.bio}
                                     onChange={e => setFormData({ ...formData, bio: e.target.value })}
-                                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-deep-saffron"
-                                ></textarea>
+                                    placeholder="Write a brief professional narrative about the artist..."
+                                    className="w-full bg-[#0D0D0D] border border-white/5 focus:border-[#C5A880]/50 text-xs p-4 text-[#FAF9F6] outline-none transition-colors resize-none leading-relaxed"
+                                />
                             </div>
 
-                            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-100">
+                            <div className="flex justify-end gap-4 pt-4 border-t border-white/5">
                                 <button
                                     type="button"
                                     onClick={() => setIsEditing(false)}
-                                    className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                                    className="border border-white/10 text-gray-300 hover:text-white hover:bg-white/5 text-xs uppercase tracking-widest px-6 py-3 transition-colors"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="bg-deep-saffron text-white px-6 py-2 rounded hover:bg-orange-600 transition-colors flex items-center space-x-2"
+                                    className="bg-[#C5A880] text-[#0D0D0D] hover:bg-[#FAF9F6] text-xs uppercase tracking-widest px-6 py-3 transition-colors font-semibold"
                                 >
-                                    <Save size={18} />
-                                    <span>Save Artist</span>
+                                    <Save size={12} className="inline mr-1" /> Enroll Artisan
                                 </button>
                             </div>
                         </form>

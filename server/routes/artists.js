@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
 const requireRole = require('../middleware/roleAuth');
 
 // Add Artist (Protected)
-router.post('/', auth, requireRole(['admin', 'creative_head', 'content_team']), async (req, res) => {
+router.post('/', auth, requireRole(['ADMIN']), async (req, res) => {
     try {
         const artist = { ...req.body, id: Date.now() };
         await db.artists.create(artist);
@@ -37,8 +37,8 @@ router.post('/', auth, requireRole(['admin', 'creative_head', 'content_team']), 
     }
 });
 
-// Update Artist (Protected) -> Content Team has full access here per requirement
-router.put('/:id', auth, requireRole(['admin', 'creative_head', 'content_team']), async (req, res) => {
+// Update Artist (Protected)
+router.put('/:id', auth, requireRole(['ADMIN', 'ARTIST']), async (req, res) => {
     try {
         const artistId = parseInt(req.params.id);
         const updates = req.body;
@@ -54,7 +54,7 @@ router.put('/:id', auth, requireRole(['admin', 'creative_head', 'content_team'])
 });
 
 // Delete Artist (Protected)
-router.delete('/:id', auth, requireRole(['admin', 'creative_head']), async (req, res) => {
+router.delete('/:id', auth, requireRole(['ADMIN']), async (req, res) => {
     try {
         const artistId = parseInt(req.params.id);
         await db.artists.deleteOne({ id: artistId });

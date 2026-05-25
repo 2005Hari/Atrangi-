@@ -13,7 +13,7 @@ const connectDB = async () => {
         if (error.message.includes('authentication failed')) {
             console.error('CRITICAL: MongoDB authentication failed. Please check your MONGODB_URI in the .env file.');
         }
-        process.exit(1);
+        console.warn('Proceeding with server startup without database connectivity...');
     }
 };
 
@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    role: { type: String, default: 'content_team', enum: ['user', 'admin', 'creative_head', 'content_team', 'marketing_em'] },
+    role: { type: String, default: 'USER', enum: ['USER', 'ARTIST', 'ADMIN'] },
     avatar: String,
     cart: { type: Array, default: [] },
     wishlist: { type: Array, default: [] },
@@ -95,3 +95,4 @@ const db = {
 };
 
 module.exports = db;
+// Export database module

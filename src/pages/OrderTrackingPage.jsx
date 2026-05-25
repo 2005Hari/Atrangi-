@@ -96,7 +96,7 @@ const OrderTrackingPage = () => {
                     <div className="text-center py-20 bg-white rounded-sm border border-gray-100">
                         <Package size={48} className="text-gray-300 mx-auto mb-4" />
                         <p className="text-gray-500 mb-6">You haven't placed any orders yet.</p>
-                        <Link to="/collections" className="bg-charcoal text-white px-8 py-3 rounded-sm hover:bg-deep-saffron transition-colors">
+                        <Link to="/shop" className="bg-charcoal text-white px-8 py-3 rounded-sm hover:bg-deep-saffron transition-colors">
                             Start Shopping
                         </Link>
                     </div>

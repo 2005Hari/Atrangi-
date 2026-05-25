@@ -115,10 +115,68 @@ export const api = {
         return res.json();
     },
 
+    createProduct: async (productData) => {
+        const res = await fetch(`${API_URL}/products`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify(productData)
+        });
+        if (!res.ok) throw new Error('Failed to create product');
+        return res.json();
+    },
+
+    updateProduct: async (id, productData) => {
+        const res = await fetch(`${API_URL}/products/${id}`, {
+            method: 'PUT',
+            headers: getHeaders(),
+            body: JSON.stringify(productData)
+        });
+        if (!res.ok) throw new Error('Failed to update product');
+        return res.json();
+    },
+
+    deleteProduct: async (id) => {
+        const res = await fetch(`${API_URL}/products/${id}`, {
+            method: 'DELETE',
+            headers: getHeaders()
+        });
+        if (!res.ok) throw new Error('Failed to delete product');
+        return res.json();
+    },
+
     // Artists
     getArtists: async () => {
         const res = await fetch(`${API_URL}/artists`);
         if (!res.ok) throw new Error('Failed to fetch artists');
+        return res.json();
+    },
+
+    createArtist: async (artistData) => {
+        const res = await fetch(`${API_URL}/artists`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify(artistData)
+        });
+        if (!res.ok) throw new Error('Failed to register artist');
+        return res.json();
+    },
+
+    updateArtist: async (id, artistData) => {
+        const res = await fetch(`${API_URL}/artists/${id}`, {
+            method: 'PUT',
+            headers: getHeaders(),
+            body: JSON.stringify(artistData)
+        });
+        if (!res.ok) throw new Error('Failed to update artist');
+        return res.json();
+    },
+
+    deleteArtist: async (id) => {
+        const res = await fetch(`${API_URL}/artists/${id}`, {
+            method: 'DELETE',
+            headers: getHeaders()
+        });
+        if (!res.ok) throw new Error('Failed to delete artist');
         return res.json();
     },
 
@@ -194,6 +252,22 @@ export const api = {
     getMyCommissions: async () => {
         const res = await fetch(`${API_URL}/commissions/my-commissions`, { headers: getHeaders() });
         if (!res.ok) throw new Error('Failed to fetch commissions');
+        return res.json();
+    },
+
+    getAdminCommissions: async () => {
+        const res = await fetch(`${API_URL}/commissions/admin`, { headers: getHeaders() });
+        if (!res.ok) throw new Error('Failed to fetch admin commissions');
+        return res.json();
+    },
+
+    updateCommissionStatus: async (id, status) => {
+        const res = await fetch(`${API_URL}/commissions/${id}`, {
+            method: 'PATCH',
+            headers: getHeaders(),
+            body: JSON.stringify({ status })
+        });
+        if (!res.ok) throw new Error('Failed to update commission status');
         return res.json();
     },
 

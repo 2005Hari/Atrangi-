@@ -48,8 +48,8 @@ const FeaturedSection = () => {
                             Hand-picked selections from our most promising student artists.
                         </p>
                     </div>
-                    <Link to="/collections" className="hidden md:flex items-center text-charcoal font-medium hover:text-deep-saffron transition-colors tracking-widest uppercase text-sm">
-                        View All Collections <Eye size={16} className="ml-2" />
+                    <Link to="/shop" className="hidden md:flex items-center text-charcoal font-medium hover:text-deep-saffron transition-colors tracking-widest uppercase text-sm">
+                        View Shop <Eye size={16} className="ml-2" />
                     </Link>
                 </motion.div>
 
@@ -92,8 +92,8 @@ const FeaturedSection = () => {
                 </div>
 
                 <div className="mt-16 text-center md:hidden">
-                    <Link to="/collections" className="inline-flex items-center text-charcoal font-medium hover:text-deep-saffron transition-colors tracking-widest uppercase text-sm border-b border-charcoal pb-1">
-                        View All Collections <Eye size={16} className="ml-2" />
+                    <Link to="/shop" className="inline-flex items-center text-charcoal font-medium hover:text-deep-saffron transition-colors tracking-widest uppercase text-sm border-b border-charcoal pb-1">
+                        View Shop <Eye size={16} className="ml-2" />
                     </Link>
                 </div>
             </div>

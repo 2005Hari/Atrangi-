@@ -31,7 +31,7 @@ router.get('/my-commissions', auth, async (req, res) => {
 });
 
 // Admin: Get All Commissions (Marketing & Admin)
-router.get('/admin', auth, requireRole(['admin', 'marketing_em']), async (req, res) => {
+router.get('/admin', auth, requireRole(['ADMIN', 'ARTIST']), async (req, res) => {
     try {
         const commissions = await db.commissions.find({}).sort({ createdAt: -1 });
         res.json(commissions);
@@ -41,7 +41,7 @@ router.get('/admin', auth, requireRole(['admin', 'marketing_em']), async (req, r
 });
 
 // Admin: Update Commission Status
-router.patch('/:id', auth, requireRole(['admin', 'marketing_em']), async (req, res) => {
+router.patch('/:id', auth, requireRole(['ADMIN', 'ARTIST']), async (req, res) => {
     try {
         const { status } = req.body;
         const result = await db.commissions.updateOne({ _id: req.params.id }, { $set: { status } });

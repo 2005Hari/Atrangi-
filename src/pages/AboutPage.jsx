@@ -1,74 +1,74 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Award, Users, Globe, ArrowRight } from 'lucide-react';
+import { Award, Users, Globe } from 'lucide-react';
 
 const AboutPage = () => {
     const stats = [
-        { label: "Artisans", value: "500+", icon: Users },
-        { label: "Countries", value: "25", icon: Globe },
-        { label: "Awards", value: "12", icon: Award },
+        { label: "Elite Artisans", value: "300+", icon: Users },
+        { label: "Academies", value: "18", icon: Globe },
+        { label: "Gilt Awards", value: "8", icon: Award },
     ];
 
     return (
-        <div className="min-h-screen bg-cream pt-24 pb-20">
+        <div className="min-h-screen bg-[#0D0D0D] text-[#FAF9F6] pt-36 pb-24 px-8 overflow-hidden">
             {/* Hero Section */}
-            <section className="container mx-auto px-6 mb-20">
+            <section className="container mx-auto max-w-5xl mb-24">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center max-w-4xl mx-auto"
+                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-center space-y-6"
                 >
-                    <h1 className="text-5xl md:text-7xl font-serif text-charcoal mb-6">
-                        Crafting the <span className="text-gold italic">Future</span> of Art
+                    <span className="text-[10px] uppercase tracking-[0.35em] text-[#C5A880] font-medium block">Our Heritage</span>
+                    <h1 className="text-4xl md:text-7xl font-display font-light text-[#FAF9F6] leading-[1.1]">
+                        Bespoke <span className="text-[#C5A880] italic font-serif">Aesthetics</span> & Provenance
                     </h1>
-                    <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                        ArtNestia is more than a marketplace; it's a movement. We bridge the gap between exceptional student artisans and connoisseurs of fine craftsmanship, curating a collection that defines the next generation of luxury.
+                    <div className="w-12 h-[1px] bg-[#C5A880]/30 mx-auto my-6" />
+                    <p className="text-xs md:text-sm text-gray-400 font-light tracking-[0.15em] leading-relaxed max-w-3xl mx-auto">
+                        ArtNestia is an exclusive digital salon bridging the gap between museum-grade academy painters and distinguished private collectors. We believe true luxury lies in the creative impulse behind the original canvas.
                     </p>
                 </motion.div>
             </section>
 
-            {/* Image & Story Section */}
-            <section className="container mx-auto px-6 mb-24">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Immersive Image & Story Grid */}
+            <section className="container mx-auto max-w-6xl mb-32">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
+                        initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="relative"
+                        transition={{ duration: 1.2 }}
+                        className="relative overflow-hidden aspect-[4/5] bg-[#121212] border border-white/5 shadow-2xl"
                     >
-                        <div className="aspect-[4/5] overflow-hidden rounded-sm">
-                            <img
-                                src="https://images.unsplash.com/photo-1459908676235-d5f02a50184b?q=80&w=2070&auto=format&fit=crop"
-                                alt="Artisan working"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                        <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-gold/10 backdrop-blur-md -z-10 rounded-full" />
+                        <img
+                            src="https://images.unsplash.com/photo-1459908676235-d5f02a50184b?q=80&w=2070&auto=format&fit=crop"
+                            alt="The Craftsmanship"
+                            className="w-full h-full object-cover opacity-80 grayscale select-none"
+                        />
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, x: 50 }}
+                        initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="space-y-6"
+                        transition={{ duration: 1.2 }}
+                        className="space-y-8"
                     >
-                        <h2 className="text-3xl md:text-4xl font-serif text-charcoal">Our Mission</h2>
-                        <p className="text-gray-600 leading-relaxed">
-                            We believe that true luxury lies in the story behind the object. Every piece in our collection is hand-selected from top art institutes across India, representing hours of dedication, skill, and creative vision.
+                        <span className="text-[10px] uppercase tracking-[0.25em] text-[#C5A880]">The Vision</span>
+                        <h2 className="text-3xl md:text-4xl font-display font-light text-[#FAF9F6]">Museum Quality. Zero Compromise.</h2>
+                        <p className="text-gray-500 font-light text-xs tracking-widest leading-relaxed">
+                            Every item cataloged on our site is custom-approved through direct studio networks. We strip away commercial galleries’ noise to bring collectors authentic masterpieces carrying full certificates of origin.
                         </p>
-                        <p className="text-gray-600 leading-relaxed">
-                            By supporting ArtNestia, you are not just acquiring a beautiful object; you are investing in the career of a promising young artist and preserving the tradition of fine craftsmanship.
+                        <p className="text-gray-500 font-light text-xs tracking-widest leading-relaxed">
+                            By commissioning or acquiring via ArtNestia, you are directly funding graduate arts research and preserving the high tradition of fine oil canvas work.
                         </p>
 
-                        <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200">
+                        <div className="grid grid-cols-3 gap-6 pt-10 border-t border-white/5 text-center">
                             {stats.map((stat, index) => (
-                                <div key={index} className="text-center">
-                                    <stat.icon size={24} className="mx-auto text-gold mb-2" />
-                                    <div className="text-2xl font-serif text-charcoal font-bold">{stat.value}</div>
-                                    <div className="text-xs text-gray-500 uppercase tracking-wider">{stat.label}</div>
+                                <div key={index} className="space-y-2">
+                                    <stat.icon size={20} className="mx-auto text-[#C5A880] mb-2" strokeWidth={1} />
+                                    <div className="text-xl font-display text-[#FAF9F6] font-bold">{stat.value}</div>
+                                    <div className="text-[9px] text-gray-500 uppercase tracking-widest leading-none">{stat.label}</div>
                                 </div>
                             ))}
                         </div>
@@ -76,30 +76,31 @@ const AboutPage = () => {
                 </div>
             </section>
 
-            {/* Values Section */}
-            <section className="bg-white py-20">
-                <div className="container mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-serif text-charcoal mb-4">Core Values</h2>
-                        <div className="w-24 h-1 bg-gold mx-auto" />
+            {/* Core Gallery Pillars */}
+            <section className="bg-[#090909] border-t border-b border-white/5 py-24 -mx-8 px-8">
+                <div className="container mx-auto max-w-6xl">
+                    <div className="text-center mb-16 space-y-4">
+                        <span className="text-[10px] uppercase tracking-[0.25em] text-[#C5A880]">Our Code</span>
+                        <h2 className="text-2xl md:text-3xl font-display font-light text-[#FAF9F6]">Three Pillars</h2>
+                        <div className="w-12 h-[1px] bg-[#C5A880]/30 mx-auto mt-4" />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         {[
-                            { title: "Authenticity", desc: "Every piece is verified original and handmade by the artist." },
-                            { title: "Excellence", desc: "We curate only the highest quality works that demonstrate exceptional skill." },
-                            { title: "Sustainability", desc: "Promoting ethical practices and sustainable materials in art creation." }
-                        ].map((value, idx) => (
+                            { title: "Provenance Verified", desc: "Every original item carries hand-sealed security tags and academic certification." },
+                            { title: "Aesthetic Excellence", desc: "Rigorous hand-curation ensuring museum-grade composition and canvas mastery." },
+                            { title: "Bespoke Packaging", desc: "Premium custom wooden crate packaging with temperature-regulated dispatch." }
+                        ].map((pillar, idx) => (
                             <motion.div
                                 key={idx}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: idx * 0.2, duration: 0.6 }}
-                                className="text-center p-8 border border-gray-100 hover:border-gold/30 transition-colors duration-300 rounded-sm"
+                                transition={{ delay: idx * 0.15, duration: 0.8 }}
+                                className="text-center p-8 border border-white/5 bg-[#0D0D0D]/40 space-y-4"
                             >
-                                <h3 className="text-xl font-serif text-charcoal mb-4">{value.title}</h3>
-                                <p className="text-gray-600">{value.desc}</p>
+                                <h3 className="text-sm font-display uppercase tracking-widest text-[#C5A880]">{pillar.title}</h3>
+                                <p className="text-gray-500 font-light text-xs tracking-widest leading-relaxed">{pillar.desc}</p>
                             </motion.div>
                         ))}
                     </div>

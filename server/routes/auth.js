@@ -25,7 +25,7 @@ router.post('/signup', async (req, res) => {
             name,
             email,
             password: hashedPassword,
-            role: 'user', // Default role
+            role: req.body.role || 'USER', // Default role
             avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150'
         });
 
@@ -59,7 +59,7 @@ router.post('/google', async (req, res) => {
                 name,
                 email,
                 password: await bcrypt.hash(Math.random().toString(36).slice(-8), 8), // Random password for socially logged in users
-                role: 'user',
+                role: 'USER',
                 avatar: picture
             });
         }

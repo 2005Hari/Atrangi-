@@ -5,10 +5,10 @@ const auth = require('../middleware/auth');
 const requireRole = require('../middleware/roleAuth');
 
 // Get all users (Admin only)
-router.get('/', auth, requireRole(['admin']), async (req, res) => {
+router.get('/', auth, requireRole(['ADMIN']), async (req, res) => {
     try {
         const users = await db.users.find({}).sort({ createdAt: -1 }).lean();
-        // Don't modify the objects directly if they are from NeDB, map them to new objects to strip passwords
+        // Strip passwords
         const safeUsers = users.map(u => {
             const { password, ...userWithoutPass } = u;
             return userWithoutPass;
@@ -20,18 +20,18 @@ router.get('/', auth, requireRole(['admin']), async (req, res) => {
 });
 
 // Update user role (Admin only)
-router.patch('/:id/role', auth, requireRole(['admin']), async (req, res) => {
+router.patch('/:id/role', auth, requireRole(['ADMIN']), async (req, res) => {
     try {
         const { role } = req.body;
-        const validRoles = ['user', 'admin', 'creative_head', 'content_team', 'marketing_em'];
+        const validRoles = ['USER', 'ARTIST', 'ADMIN'];
 
         if (!validRoles.includes(role)) {
             return res.status(400).json({ error: "Invalid role" });
         }
 
-        const result = await db.users.update({ _id: req.params.id }, { $set: { role } });
+        const result = await db.users.updateOne({ _id: req.params.id }, { $set: { role } });
 
-        if (result === 0) return res.status(404).json({ error: "User not found" });
+        if (result.matchedCount === 0) return res.status(404).json({ error: "User not found" });
 
         res.json({ message: "Role updated successfully", role });
     } catch (error) {

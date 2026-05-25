@@ -53,8 +53,8 @@ const ProductPage = () => {
         return (
             <div className="min-h-screen pt-32 text-center">
                 <h2 className="text-2xl font-serif">Product not found</h2>
-                <Link to="/collections" className="text-gold hover:underline mt-4 inline-block">
-                    Back to Collections
+                <Link to="/shop" className="text-gold hover:underline mt-4 inline-block">
+                    Back to Shop
                 </Link>
             </div>
         );
@@ -68,8 +68,8 @@ const ProductPage = () => {
 
             <div className="container mx-auto px-6">
                 {/* Breadcrumb / Back */}
-                <Link to="/collections" className="inline-flex items-center text-gray-500 hover:text-gold transition-colors mb-8">
-                    <ArrowLeft size={16} className="mr-2" /> Back to Collections
+                <Link to="/shop" className="inline-flex items-center text-gray-500 hover:text-gold transition-colors mb-8">
+                    <ArrowLeft size={16} className="mr-2" /> Back to Shop
                 </Link>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 mb-20">
@@ -106,9 +106,9 @@ const ProductPage = () => {
                         <h1 className="text-4xl md:text-5xl font-serif text-charcoal mb-2">{product.title}</h1>
                         <div className="flex items-center space-x-2 mb-6">
                             <span className="text-gray-500">by</span>
-                            <Link to="/artists" className="text-charcoal font-medium hover:text-gold transition-colors border-b border-gold/30">
+                            <span className="text-charcoal font-medium">
                                 {product.artist}
-                            </Link>
+                            </span>
                         </div>
 
                         <p className="text-2xl font-medium text-gold mb-8">₹{product.price.toLocaleString()}</p>
