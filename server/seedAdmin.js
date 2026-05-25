@@ -6,7 +6,7 @@ const seedAdmin = async () => {
         await db.connect();
 
         const users = [
-            { name: 'Admin User', email: 'admin@atrangi.com', role: 'admin' },
+            { name: 'Admin User', email: 'admin@atrangi.coam', role: 'admin' },
             { name: 'Creative Head', email: 'creative@atrangi.com', role: 'creative_head' },
             { name: 'Content Team', email: 'content@atrangi.com', role: 'content_team' },
             { name: 'Marketing & EM', email: 'marketing@atrangi.com', role: 'marketing_em' }

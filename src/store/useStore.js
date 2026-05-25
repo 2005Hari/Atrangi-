@@ -223,7 +223,7 @@ export const useStore = create(
             addOrder: (order) => set((state) => ({ orders: [order, ...state.orders] })),
         }),
         {
-            name: 'atrangi-storage',
+            name: 'artnestia-storage',
             partialize: (state) => ({
                 cart: state.cart,
                 user: state.user,

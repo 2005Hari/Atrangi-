@@ -13,7 +13,7 @@ const ReturnsPage = () => {
                 >
                     <h1 className="text-4xl md:text-5xl font-display text-charcoal mb-6">Returns & Refunds</h1>
                     <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-                        We want you to be completely happy with your Atrangi purchase. If something isn't right, we're here to help.
+                        We want you to be completely happy with your ArtNestia purchase. If something isn't right, we're here to help.
                     </p>
                 </motion.div>
 
@@ -71,7 +71,7 @@ const ReturnsPage = () => {
                     <section>
                         <h2 className="text-xl font-bold text-charcoal mb-4">Damaged Items</h2>
                         <p>
-                            We pack our art with extreme care, but accidents can happen. If your artwork arrives damaged, please email us at <strong>returns@atrangi.com</strong> within 48 hours of delivery with clear photos of the damage and the packaging. We will arrange for a replacement or a full refund immediately.
+                            We pack our art with extreme care, but accidents can happen. If your artwork arrives damaged, please email us at <strong>returns@artnestia.com</strong> within 48 hours of delivery with clear photos of the damage and the packaging. We will arrange for a replacement or a full refund immediately.
                         </p>
                     </section>
                 </div>

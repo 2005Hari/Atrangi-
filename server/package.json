@@ -1,5 +1,5 @@
 {
-    "name": "atrangi-server",
+    "name": "artnestia-server",
     "version": "1.0.0",
     "description": "Backend for Atrangi Marketplace",
     "main": "index.js",

@@ -59,7 +59,7 @@ const ContactPage = () => {
                                     </div>
                                     <div>
                                         <h3 className="font-medium text-charcoal">Email Us</h3>
-                                        <p className="text-gray-500">atrangithefineartsclub@gmail.com</p>
+                                        <p className="text-gray-500">contact@artnestia.com</p>
                                         <p className="text-gray-500">We reply within 24 hours</p>
                                     </div>
                                 </div>

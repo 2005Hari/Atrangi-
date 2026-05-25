@@ -43,7 +43,7 @@ const Navbar = ({ onCartClick, cart = [], onFavoritesClick, favorites = [] }) =>
                 <div className="container mx-auto px-6 flex items-center justify-between">
                     {/* Logo */}
                     <Link to="/" className="text-2xl font-display font-bold tracking-wider">
-                        ATRANGI <span className="text-deep-saffron">CLUB</span>
+                        ARTNESTIA
                     </Link>
 
                     {/* Desktop Navigation */}

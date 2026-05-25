@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 const sendOrderConfirmation = async (order, userEmail) => {
     try {
         const mailOptions = {
-            from: '"Atrangi Gallery" <no-reply@atrangi.com>',
+            from: '"ArtNestia Gallery" <no-reply@artnestia.com>',
             to: userEmail,
             subject: `Order Confirmation - #${order.id || order._id}`,
             html: `
@@ -25,7 +25,7 @@ const sendOrderConfirmation = async (order, userEmail) => {
                     <p><strong>Total:</strong> ₹${order.total}</p>
                     <br>
                     <p>We will notify you once your art is on its way.</p>
-                    <p>Warm regards,<br>The Atrangi Team</p>
+                    <p>Warm regards,<br>The ArtNestia Team</p>
                 </div>
             `
         };
@@ -40,8 +40,8 @@ const sendOrderConfirmation = async (order, userEmail) => {
 const sendAdminAlert = async (order) => {
     try {
         const mailOptions = {
-            from: '"Atrangi System" <system@atrangi.com>',
-            to: process.env.ADMIN_EMAIL || 'admin@atrangi.com',
+            from: '"ArtNestia System" <system@artnestia.com>',
+            to: process.env.ADMIN_EMAIL || 'admin@artnestia.com',
             subject: `New Order Received - #${order.id || order._id}`,
             html: `
                 <div style="font-family: Arial, sans-serif;">

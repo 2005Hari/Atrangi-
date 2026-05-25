@@ -28,11 +28,9 @@ const Hero = () => {
                     className="border-l-4 border-deep-saffron pl-6 md:pl-10 mb-8"
                 >
                     <h1 className="text-6xl md:text-8xl lg:text-9xl font-display text-cream leading-none tracking-tighter mb-4">
-                        ATRANGI
+                        ARTNESTIA
                     </h1>
-                    <p className="text-2xl md:text-4xl font-serif italic text-gold">
-                        The Fine Arts Club
-                    </p>
+
                 </motion.div>
 
                 <motion.p

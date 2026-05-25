@@ -41,7 +41,7 @@ const ArtistsPage = () => {
                 >
                     <h1 className="text-5xl md:text-7xl font-display text-charcoal mb-6">Our Artists</h1>
                     <p className="text-gray-500 max-w-2xl mx-auto text-lg font-light">
-                        Meet the visionary students behind the masterpieces. Each artist brings a unique perspective and expertise to the Atrangi collection.
+                        Meet the visionary students behind the masterpieces. Each artist brings a unique perspective and expertise to the ArtNestia collection.
                     </p>
                 </motion.div>
 

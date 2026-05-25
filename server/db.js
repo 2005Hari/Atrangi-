@@ -2,10 +2,17 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/atrangi');
+        const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/artnestia';
+        const maskedUri = uri.replace(/:([^@]+)@/, ':****@');
+        console.log(`Connecting to MongoDB at: ${maskedUri}`);
+
+        const conn = await mongoose.connect(uri);
         console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
-        console.error(`Error: ${error.message}`);
+        console.error(`MongoDB Connection Error: ${error.message}`);
+        if (error.message.includes('authentication failed')) {
+            console.error('CRITICAL: MongoDB authentication failed. Please check your MONGODB_URI in the .env file.');
+        }
         process.exit(1);
     }
 };

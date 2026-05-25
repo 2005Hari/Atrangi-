@@ -10,7 +10,7 @@ const Footer = () => {
                     {/* Brand Column */}
                     <div className="space-y-6">
                         <Link to="/" className="text-2xl font-display font-bold tracking-wider">
-                            ATRANGI <span className="text-deep-saffron">CLUB</span>
+                            ARTNESTIA
                         </Link>
                         <p className="text-gray-400 text-sm leading-relaxed">
                             Curated handcrafted art pieces from the world's most talented student artists.
@@ -48,7 +48,7 @@ const Footer = () => {
                                 42, Kala Ghoda, Fort<br />
                                 Mumbai, Maharashtra 400001<br />
                                 +91 98765 43210<br />
-                                atrangithefineartsclub@gmail.com
+                                contact@artnestia.com
                             </li>
                         </ul>
                     </div>
@@ -74,7 +74,7 @@ const Footer = () => {
                 {/* Bottom Bar */}
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                     <p className="text-gray-500 text-xs">
-                        © {new Date().getFullYear()} Artisan Collective. All rights reserved.
+                        © {new Date().getFullYear()} ArtNestia. All rights reserved.
                     </p>
                     <div className="flex items-center space-x-4 text-gray-500">
                         <div className="flex items-center space-x-1" title="Credit/Debit Cards">

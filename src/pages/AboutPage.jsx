@@ -23,7 +23,7 @@ const AboutPage = () => {
                         Crafting the <span className="text-gold italic">Future</span> of Art
                     </h1>
                     <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                        Artisan Collective is more than a marketplace; it's a movement. We bridge the gap between exceptional student artisans and connoisseurs of fine craftsmanship, curating a collection that defines the next generation of luxury.
+                        ArtNestia is more than a marketplace; it's a movement. We bridge the gap between exceptional student artisans and connoisseurs of fine craftsmanship, curating a collection that defines the next generation of luxury.
                     </p>
                 </motion.div>
             </section>
@@ -60,7 +60,7 @@ const AboutPage = () => {
                             We believe that true luxury lies in the story behind the object. Every piece in our collection is hand-selected from top art institutes across India, representing hours of dedication, skill, and creative vision.
                         </p>
                         <p className="text-gray-600 leading-relaxed">
-                            By supporting Artisan Collective, you are not just acquiring a beautiful object; you are investing in the career of a promising young artist and preserving the tradition of fine craftsmanship.
+                            By supporting ArtNestia, you are not just acquiring a beautiful object; you are investing in the career of a promising young artist and preserving the tradition of fine craftsmanship.
                         </p>
 
                         <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200">

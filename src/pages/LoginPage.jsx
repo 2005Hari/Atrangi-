@@ -125,7 +125,7 @@ const LoginPage = () => {
                 </p>
 
                 <div className="mt-8 pt-6 border-t border-gray-100 text-center text-xs text-gray-400">
-                    <p>Admin Demo: admin@atrangi.com / admin123</p>
+                    <p>Admin Demo: admin@artnestia.com / admin123</p>
                 </div>
             </motion.div>
         </div>

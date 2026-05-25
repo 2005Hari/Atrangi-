@@ -26,7 +26,7 @@ const FAQPage = () => {
         },
         {
             question: "How do I support the student artists?",
-            answer: "By purchasing from Atrangi, you are directly supporting student creativity. We ensure that 85% of the profit from each sale goes directly to the artist to support their education and artistic journey."
+            answer: "By purchasing from ArtNestia, you are directly supporting student creativity. We ensure that 85% of the profit from each sale goes directly to the artist to support their education and artistic journey."
         },
         {
             question: "What payment methods do you accept?",

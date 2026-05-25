@@ -38,7 +38,7 @@ const ShippingPage = () => {
                     <section>
                         <h2 className="text-xl font-bold text-charcoal mb-4">Damages</h2>
                         <p>
-                            Atrangi is not liable for any products damaged or lost during shipping. If you received your order damaged, please contact the shipment carrier to file a claim.
+                            ArtNestia is not liable for any products damaged or lost during shipping. If you received your order damaged, please contact the shipment carrier to file a claim.
                             Please save all packaging materials and damaged goods before filing a claim.
                         </p>
                     </section>
